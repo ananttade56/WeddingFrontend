@@ -161,7 +161,7 @@ const AdminApproval = () => {
                   onClick={() => handleReject(user.name, user.ipAddress[0])}
                   className="flex-1 bg-red-50 hover:bg-red-100 text-red-600 font-medium py-2.5 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center"
                 >
-                  Reject
+                  RejecT
                 </button>
               </div>
             </div>
