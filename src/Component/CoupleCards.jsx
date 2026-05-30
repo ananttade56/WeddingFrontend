@@ -22,14 +22,6 @@ const ProfileCard = ({ imageUrl, role, name, description, floralPosition, delay 
         <span className="text-[#9cb08f] text-[11px] font-bold tracking-[0.2em] uppercase mb-4">{role}</span>
         <h2 className="font-['Great_Vibes',cursive] text-[46px] text-gray-800 mb-5 tracking-wide">{name}</h2>
         <p className="text-gray-500 text-[13px] leading-[1.9] mb-8 max-w-[90%]">{description}</p>
-
-        {/* Social Media Icons */}
-        <div className="flex items-center space-x-3">
-          <a href="#" className="w-8 h-8 rounded-full bg-[#222222] text-white flex items-center justify-center hover:bg-[#9cb08f] transition duration-300">
-            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
-          </a>
-          {/* Add remaining icons here */}
-        </div>
       </div>
 
       {/* CONDITIONAL FLORAL OVERLAYS */}

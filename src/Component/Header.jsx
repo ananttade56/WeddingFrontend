@@ -62,7 +62,7 @@ const Header = () => {
                 <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z" />
                 <path d="M12 22s-3-4.5-3-9.5A5.5 5.5 0 0 1 12 7a5.5 5.5 0 0 1 3 5.5c0 5-3 9.5-3 9.5z" />
               </svg>
-              <span className="text-3xl font-['Great_Vibes',cursive] tracking-wider">Love well</span>
+              <span className="text-3xl font-['Great_Vibes',cursive] tracking-wider">Wedding</span>
             </a>
           </div>
 
@@ -73,10 +73,7 @@ const Header = () => {
               {/* Home */}
               <li className="relative group py-6 cursor-pointer">
                 <a href="#" className="hover:text-gray-300 transition-colors">Home</a>
-                <ul className="absolute top-[70px] left-0 w-48 bg-white text-gray-800 shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                  <li><a href="#" className="block px-4 py-2 hover:bg-[#9cb08f] hover:text-white transition">Home Version 01</a></li>
-                  <li><a href="#" className="block px-4 py-2 hover:bg-[#9cb08f] hover:text-white transition">Home Version 02</a></li>
-                </ul>
+               
               </li>
 
               {/* About */}
@@ -89,19 +86,7 @@ const Header = () => {
                 </ul>
               </li>
 
-              {/* Service */}
-              <li className="relative group py-6 cursor-pointer">
-                <a href="#" className="hover:text-gray-300 transition-colors">Service</a>
-                <ul className="absolute top-[70px] left-0 w-48 bg-white text-gray-800 shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                  <li><a href="#" className="block px-4 py-2 hover:bg-[#9cb08f] hover:text-white transition">Services</a></li>
-                  <li><a href="#" className="block px-4 py-2 hover:bg-[#9cb08f] hover:text-white transition">Portfolio</a></li>
-                </ul>
-              </li>
 
-              {/* Shop */}
-              <li className="relative group py-6 cursor-pointer">
-                <a href="#" className="hover:text-gray-300 transition-colors">Shop</a>
-              </li>
 
               {/* Blog */}
               <li className="relative group py-6 cursor-pointer">
