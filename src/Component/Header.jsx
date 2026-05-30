@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
 const backgroundImages = [
-  "/EngmentImage3.jpeg", // Your local image!
+  "/EngmentImage3.jpeg", 
   "/EngmentImge2.jpeg",
-  "/EngmentImage5.jpeg",
+  "/AnantAndApurva.jpeg"
 ];
 
 const Header = () => {
