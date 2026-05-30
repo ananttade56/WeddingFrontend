@@ -2,20 +2,40 @@
 // src/pages/LandingPage.jsx
 // ==========================================
 
-import { useState } from "react";
+import { useState, useEffect } from "react"; // NEW: Imported useEffect
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import fpPromise from "@fingerprintjs/fingerprintjs"; // NEW: Imported FingerprintJS
 
 const LandingPage = () => {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [visitorId, setVisitorId] = useState(""); // NEW: State to store the device ID
 
   const navigate = useNavigate();
+
+  // ==========================================
+  // NEW: GENERATE DEVICE ID ON PAGE LOAD
+  // ==========================================
+  useEffect(() => {
+    const getFingerprint = async () => {
+      const fp = await fpPromise.load();
+      const result = await fp.get();
+      setVisitorId(result.visitorId);
+    };
+    getFingerprint();
+  }, []);
 
   const handleSubmit = async () => {
     if (!name.trim()) {
       alert("Please enter name");
+      return;
+    }
+
+    // NEW: Ensure the ID is ready before submitting
+    if (!visitorId) {
+      alert("Still verifying device securely. Please wait a second and try again.");
       return;
     }
 
@@ -24,9 +44,10 @@ const LandingPage = () => {
       setMessage("");
 
       // ==========================================
-      // CHECK USER ACCESS
+      // CHECK USER ACCESS (UPDATED)
       // ==========================================
-      const response = await API.get(`/?name=${name}`);
+      // Added visitorId to the URL parameters
+      const response = await API.get(`/?name=${name}&visitorId=${visitorId}`);
 
       console.log(response.data);
 
@@ -37,13 +58,10 @@ const LandingPage = () => {
         // ==========================================
         // ADMIN CHECK INTEGRATION
         // ==========================================
-        // If the backend says this user is the admin, save the flag
         if (response.data.isAdmin) {
           localStorage.setItem("isAdmin", "true");
         } else {
-          // Ensure standard users don't accidentally keep admin privileges 
-          // if you log out and log back in as someone else
-          localStorage.setItem("isAdmin", "false"); 
+          localStorage.setItem("isAdmin", "false");
         }
 
         navigate("/home");
@@ -52,15 +70,13 @@ const LandingPage = () => {
       console.log(error);
 
       // ==========================================
-      // SEND ACCESS REQUEST
+      // SEND ACCESS REQUEST (UPDATED)
       // ==========================================
       try {
-        const requestResponse = await API.post(
-          "/request/user",
-          {
-            name,
-          }
-        );
+        const requestResponse = await API.post("/request/user", {
+          name,
+          visitorId, // NEW: Added visitorId to the request body
+        });
 
         console.log(requestResponse.data);
 
@@ -72,10 +88,7 @@ const LandingPage = () => {
       } catch (err) {
         console.log(err);
 
-        setMessage(
-          err.response?.data?.message ||
-            "Something went wrong"
-        );
+        setMessage(err.response?.data?.message || "Something went wrong");
       }
     } finally {
       setLoading(false);

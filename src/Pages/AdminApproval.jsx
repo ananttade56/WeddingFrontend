@@ -34,7 +34,7 @@ const AdminApproval = () => {
   };
 
   useEffect(() => {
-    // Optional: Protect the route by checking if user is actually admin
+    // Protect the route by checking if user is actually admin
     const isAdmin = localStorage.getItem("isAdmin") === "true";
     if (!isAdmin) {
       navigate("/"); // Redirect non-admins back to the landing page
@@ -44,38 +44,38 @@ const AdminApproval = () => {
   }, [navigate]);
 
   // ==========================================
-  // APPROVE USER API CALL
+  // APPROVE USER API CALL (UPDATED FOR FINGERPRINT)
   // ==========================================
-  const handleApprove = async (name, ipAddress) => {
+  const handleApprove = async (name, visitorId) => {
     try {
       const response = await API.post("/admin/allow", {
         name,
-        ipAddress,
+        visitorId, // UPDATED: Changed from ipAddress to visitorId
       });
-      alert(response.data.message || `${name} has been approved.`);
+      alert(response.data.message || `${name}'s device has been approved.`);
       fetchRequests(); // Refresh the list after successful action
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Failed to approve user.");
+      alert(err.response?.data?.message || "Failed to approve user device.");
     }
   };
 
   // ==========================================
-  // REJECT USER API CALL
+  // REJECT USER API CALL (UPDATED FOR FINGERPRINT)
   // ==========================================
-  const handleReject = async (name, ipAddress) => {
-    if (!window.confirm(`Are you sure you want to reject ${name}?`)) return;
+  const handleReject = async (name, visitorId) => {
+    if (!window.confirm(`Are you sure you want to reject this device request for ${name}?`)) return;
     
     try {
       const response = await API.post("/admin/reject", {
         name,
-        ipAddress,
+        visitorId, // UPDATED: Changed from ipAddress to visitorId
       });
-      alert(response.data.message || `${name} has been rejected.`);
+      alert(response.data.message || `${name}'s device request has been rejected.`);
       fetchRequests(); // Refresh the list after successful action
     } catch (err) {
       console.error(err);
-      alert(err.response?.data?.message || "Failed to reject user.");
+      alert(err.response?.data?.message || "Failed to reject user device.");
     }
   };
 
@@ -90,7 +90,7 @@ const AdminApproval = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Admin Dashboard</h1>
-            <p className="text-gray-500 mt-2">Manage incoming website access requests.</p>
+            <p className="text-gray-500 mt-2">Manage incoming website access requests by device identification.</p>
           </div>
           <button 
             onClick={() => navigate("/home")}
@@ -121,7 +121,7 @@ const AdminApproval = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <h3 className="mt-2 text-sm font-medium text-gray-900">No pending requests</h3>
-            <p className="mt-1 text-sm text-gray-500">You are all caught up! There are no users waiting for approval.</p>
+            <p className="mt-1 text-sm text-gray-500">You are all caught up! There are no device fingerprints waiting for approval.</p>
           </div>
         )}
 
@@ -138,30 +138,31 @@ const AdminApproval = () => {
                 </div>
               </div>
 
+              {/* UPDATED: Loop over user.fingerprints instead of user.ipAddress */}
               <div className="space-y-3 mb-6">
-                {user.ipAddress.map((ip, i) => (
-                  <div key={i} className="flex items-center text-sm text-gray-600 bg-gray-50 p-2 rounded-md border border-gray-100">
+                {user.fingerprints && user.fingerprints.map((fingerprint, i) => (
+                  <div key={i} className="flex items-center text-sm text-gray-600 bg-gray-50 p-2 rounded-md border border-gray-100 break-all">
                     <svg className="flex-shrink-0 mr-1.5 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11a5 5 0 00-10 0c0 .265.011.528.031.789m15.969 0a14.003 14.003 0 01-1.537 6.45M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    IP: {ip}
+                    ID: {fingerprint}
                   </div>
                 ))}
               </div>
 
               <div className="flex gap-3 pt-4 border-t border-gray-100">
-                {/* Assuming you want to approve/reject the first IP associated with the request */}
+                {/* UPDATED: Passing the first fingerprint identification token associated with the request */}
                 <button
-                  onClick={() => handleApprove(user.name, user.ipAddress[0])}
+                  onClick={() => handleApprove(user.name, user.fingerprints[0])}
                   className="flex-1 bg-green-500 hover:bg-green-600 text-white font-medium py-2.5 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center"
                 >
                   Approve
                 </button>
                 <button
-                  onClick={() => handleReject(user.name, user.ipAddress[0])}
+                  onClick={() => handleReject(user.name, user.fingerprints[0])}
                   className="flex-1 bg-red-50 hover:bg-red-100 text-red-600 font-medium py-2.5 px-4 rounded-xl transition-colors duration-200 flex justify-center items-center"
                 >
-                  RejecT
+                  Reject
                 </button>
               </div>
             </div>

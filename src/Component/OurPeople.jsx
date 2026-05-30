@@ -7,45 +7,45 @@ const brideFamily = [
     name: 'Saurabh Bhutad',
     role: 'Brother',
     description: 'A steadfast protector and lifelong friend, Saurabh has always been the anchor of the family. His unwavering support and warm presence make this special day truly complete.',
-    image: '/api/placeholder/120/120'
+    image: '/Saurabh.jpeg'
   },
   {
     id: 2,
     name: 'Pooja Bhutad',
     role: 'Sister-in-law',
     description: 'More than just a sister-in-law, Pooja brings elegance, laughter, and a beautiful warmth to the family. She is a cherished confidante sharing in every moment of this joyous journey.',
-    image: '/api/placeholder/120/120'
+    image: '/Pooja.jpeg'
   },
   {
     id: 3,
     name: 'Snehal Bind',
     role: 'Sister',
     description: 'A partner in a keeper of secrets. Snehal and the bride share an unbreakable bond woven with countless memories, endless laughter, and boundless love.',
-    image: '/api/placeholder/120/120'
+    image: '/Snehal.jpeg'
   }
 ];
 
 const groomFamily = [
   {
     id: 1,
-    name: 'Shrijit',
+    name: 'Shrijit Vitonde',
     role: 'Brother',
     description: 'A brother whose loyalty and vibrant spirit know no bounds. Shrijit has been a lifelong wingman, bringing unmatched energy and joy to this incredible celebration.',
-    image: '/api/placeholder/120/120'
+    image: '/Shrijit.jpeg'
   },
   {
     id: 2,
-    name: 'Shreya',
+    name: 'Shreya Vitonde',
     role: 'Sister-in-law',
     description: 'Radiating kindness and grace, Shreya has a heart of gold. Her welcoming smile and boundless enthusiasm make her an irreplaceable part of the family and this beautiful union.',
-    image: '/api/placeholder/120/120'
+    image: '/Shreya.jpeg'
   },
   {
     id: 3,
-    name: 'Aditya',
+    name: 'Aditya Pant',
     role: 'Brother',
     description: 'Always the life of the party and a steadfast pillar of strength. His bond with his brother is built on a lifetime of shared adventures, inside jokes, and unwavering brotherly love.',
-    image: '/api/placeholder/120/120'
+    image: '/Aditya.jpeg'
   }
 ];
 // Reusable card component now wrapped in a motion.div
